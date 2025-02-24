@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Send Html To LLM",
+  "version": "0.01",
+  "description": "Webページの要素を選択し、LLM APIに送信する拡張機能",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab", "storage", "scripting", "tabs"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "host_permissions": ["https://api.openai.com/*"]
+}

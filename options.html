@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>オプション</title>
+    <style>
+        body {
+            width: 400px;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+        }
+        #templateList {
+            list-style-type: none;
+            padding: 0;
+            max-height: 200px; /* スクロール可能に */
+            overflow-y: auto;
+        }
+        #templateList li {
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* 2行まで表示 */
+            -webkit-box-orient: vertical;
+            cursor: pointer;
+            position: relative;
+        }
+        .template-actions {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            display: none;
+        }
+        li:hover .template-actions {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>プロンプトテンプレート</h1>
+    <input type="text" id="searchTemplate" placeholder="検索">
+    <ul id="templateList"></ul>
+    
+    <textarea id="newTemplate" placeholder="新しいテンプレート"></textarea>
+    <button id="insertVariableButton">${inputHtml} 挿入</button>
+    <button id="addTemplateButton">追加</button>
+
+    <h1>LLM API設定</h1>
+    <input type="text" id="apiEndpoint" placeholder="APIエンドポイント">
+    <input type="text" id="apiKey" placeholder="APIキー">
+    <button id="saveApiConfigButton">保存</button>
+
+    <script src="options.js"></script>
+</body>
+</html>
