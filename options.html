@@ -2,12 +2,37 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>オプション</title>
+    <title>Send Html To LLM 設定</title>
     <style>
         body {
             width: 400px;
             padding: 10px;
             font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+        }
+        button:not(.template-actions button) {
+            cursor: pointer;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        button:hover {
+            background-color: #dee2e6;
+            border-color: #adb5bd;
         }
         textarea {
             width: 100%;
@@ -32,14 +57,16 @@
             cursor: pointer;
             position: relative;
         }
-        .template-actions {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            display: none;
+        .template-actions button {
+            margin-left: 5px;
+            padding: 4px 8px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            transition: color 0.3s;
         }
-        li:hover .template-actions {
-            display: inline-block;
+        .template-actions button:hover {
+            color: #007bff;
         }
     </style>
 </head>
