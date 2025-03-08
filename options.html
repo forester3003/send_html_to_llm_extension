@@ -52,6 +52,14 @@
     <button id="insertVariableButton">${inputHtml} 挿入</button>
     <button id="addTemplateButton">追加</button>
 
+    <h1>モデル選択</h1>
+    <select id="modelSelect">
+        <option value="gpt-4o">GPT-4o ( in: $2.5 / out: $10 )</option>
+        <option value="gpt-4o-mini">GPT-4o-mini ( in: $0.15 / out: $0.6 )</option>
+        <option value="o3-mini">o3-mini ( in: $1.1 / out: $4.4 )</option>
+    </select>
+    <button id="saveModelButton">モデルを保存</button>
+
     <h1>LLM API設定</h1>
     <input type="text" id="apiEndpoint" placeholder="APIエンドポイント">
     <input type="text" id="apiKey" placeholder="APIキー">

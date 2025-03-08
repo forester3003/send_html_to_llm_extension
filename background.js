@@ -7,20 +7,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           return;
       }
 
-      fetch(endpoint, {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${apiKey}`
-          },
-          body: JSON.stringify({
-              model: "gpt-4",
-              messages: [{ role: "user", content: prompt }]
+      chrome.storage.local.get(['apiConfig'], (result) => {
+          const model = result.apiConfig.model || 'gpt-4o-mini'; // デフォルトを設定
+
+          fetch(endpoint, {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${apiKey}`
+              },
+              body: JSON.stringify({
+                  model: model,
+                  messages: [{ role: "user", content: prompt }]
+              })
           })
-      })
-      .then(response => response.json())
-      .then(data => sendResponse({ response: data.choices[0].message.content }))
-      .catch(error => sendResponse({ error: error.message }));
+          .then(response => response.json())
+          .then(data => sendResponse({ response: data.choices[0].message.content }))
+          .catch(error => sendResponse({ error: error.message }));
+      });
 
       return true;
   }

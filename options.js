@@ -7,6 +7,18 @@ function loadData(callback) {
       const apiConfig = result.apiConfig || {};
       callback(templates, apiConfig);
   });
+
+// モデル設定保存
+document.getElementById('saveModelButton').addEventListener('click', () => {
+    const model = document.getElementById('modelSelect').value;
+    chrome.storage.local.get(['apiConfig'], (result) => {
+        const apiConfig = result.apiConfig || {};
+        apiConfig.model = model;
+        chrome.storage.local.set({ apiConfig }, () => {
+            alert('モデルが保存されました');
+        });
+    });
+});
 }
 
 // テンプレートリストを更新
@@ -80,8 +92,9 @@ loadData((templates, apiConfig) => {
   renderTemplates(templates);
 
   // API設定を入力フィールドに反映
-  document.getElementById('apiEndpoint').value = apiConfig.endpoint || '';
-  document.getElementById('apiKey').value = apiConfig.apiKey || '';
+    document.getElementById('apiEndpoint').value = apiConfig.endpoint || '';
+    document.getElementById('apiKey').value = apiConfig.apiKey || '';
+    document.getElementById('modelSelect').value = apiConfig.model || 'gpt-4'; // デフォルトを設定
 });
 
 // 「追加」ボタンのクリックイベント
