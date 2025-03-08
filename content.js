@@ -25,8 +25,9 @@ const state = {
   // 定数
   const CONSTANTS = {
     SELECTED_STYLE: {
-      backgroundColor: 'rgba(255, 255, 0, 0.3)',
-      border: '2px solid red'
+      backgroundColor: 'rgba(0, 123, 255, 0.1)',
+      border: '2px dashed #ff5733',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
     },
     OVERLAY_STYLE: {
       position: "fixed",
@@ -34,17 +35,20 @@ const state = {
       right: "10px",
       width: "400px",
       height: "250px",
-      backgroundColor: "white",
-      border: "1px solid black",
+      backgroundColor: "#f8f9fa",
+      border: "1px solid #ced4da",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
       zIndex: "10000",
       padding: "10px",
+      borderRadius: "8px",
+      backgroundColor: "#ffffff",
       boxSizing: "border-box"
     },
     INFO_DIV_STYLE: {
-      color: "black",
+      color: "#212529",
       overflow: "auto",
       maxHeight: "180px",
-      whiteSpace: "pre-wrap",
+      // whiteSpace: "pre-wrap",
       wordBreak: "break-word"
     }
   };
@@ -71,12 +75,12 @@ const state = {
       <h1 id="overlay-header" style="font-size: 16px; margin: 0 0 10px 0; cursor: move; color: black; display: flex; justify-content: space-between; align-items: center;">
         <span id="overlay-title">要素の情報</span>
         <div>
-          <button id="toggle-mode" style="font-size: 12px; padding: 2px 5px;">選択モード: ON</button>
-          <button id="prompt-template" style="font-size: 12px; padding: 2px 5px; margin-left: 5px;">テンプレート</button>
-          <button id="send-button" style="font-size: 12px; padding: 2px 5px; margin-left: 5px;">送信</button>
+          <button id="toggle-mode" style="font-size: 12px; padding: 5px 10px; border: 1px solid #ced4da; border-radius: 4px; background-color: #e9ecef; margin-right: 5px;">選択モード: ON</button>
+          <button id="prompt-template" style="font-size: 12px; padding: 5px 10px; border: 1px solid #ced4da; border-radius: 4px; background-color: #e9ecef; margin-right: 5px;">テンプレート</button>
+          <button id="send-button" style="font-size: 12px; padding: 5px 10px; border: 1px solid #ced4da; border-radius: 4px; background-color: #e9ecef;">送信</button>
         </div>
       </h1>
-      <div id="element-info"></div>
+      <div id="element-info" style="padding: 10px; background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 4px; margin-top: 10px;">要素が選択されていません</div>
     `;
     
     document.body.appendChild(state.overlay);
@@ -412,7 +416,8 @@ const state = {
     if (state.selectedElement) {
       Object.assign(state.selectedElement.style, {
         backgroundColor: "",
-        border: ""
+        border: "",
+        boxShadow: ""
       });
     }
   }
@@ -499,8 +504,9 @@ const state = {
       transform: "translate(-50%, -50%)",
       width: "500px",
       height: "300px",
-      backgroundColor: "white",
-      border: "1px solid black",
+      backgroundColor: "#f1f3f5",
+      border: "1px solid #ced4da",
+      borderRadius: "4px",
       zIndex: "10001",
       padding: "10px",
       boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
@@ -529,9 +535,15 @@ const state = {
    */
   function createModalTextarea(initialText) {
     const textarea = document.createElement("textarea");
-    textarea.style.width = "100%";
-    textarea.style.height = "180px";
-    textarea.style.resize = "none";
+    Object.assign(textarea.style, {
+      width: "100%",
+      height: "180px",
+      resize: "none",
+      padding: "5px",
+      border: "1px solid #ced4da",
+      borderRadius: "4px",
+      backgroundColor: "#e9ecef"
+    });
     textarea.value = initialText;
     return textarea;
   }
@@ -552,8 +564,14 @@ const state = {
     // キャンセルボタン
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "キャンセル";
-    cancelButton.style.flex = "1";
-    cancelButton.style.marginRight = "5px";
+    Object.assign(cancelButton.style, {
+      flex: "1",
+      marginRight: "5px",
+      padding: "5px 10px",
+      border: "1px solid #ced4da",
+      borderRadius: "4px",
+      backgroundColor: "#e9ecef"
+    });
     cancelButton.addEventListener("click", (event) => {
       event.stopPropagation(); // 要素選択を防ぐ
       document.body.removeChild(modal);
@@ -563,7 +581,13 @@ const state = {
     // 送信ボタン
     const sendButton = document.createElement("button");
     sendButton.textContent = "送信";
-    sendButton.style.flex = "1";
+    Object.assign(sendButton.style, {
+      flex: "1",
+      padding: "5px 10px",
+      border: "1px solid #ced4da",
+      borderRadius: "4px",
+      backgroundColor: "#e9ecef"
+    });
     sendButton.addEventListener("click", (event) => {
       event.stopPropagation(); // 要素選択を防ぐ
       callback(textarea.value);
@@ -582,8 +606,8 @@ const state = {
    */
   function displayLLMResponse(responseText) {
     updateOverlayHtml(`
-      <pre style="white-space: pre-wrap; word-break: break-word; margin: 0; padding: 0; line-height: 1.2;">${responseText}</pre>
-      <button id="copy-response" style="font-size: 12px; display: block; margin-left: auto;">コピー</button>
+      <pre style="white-space: pre-wrap; word-break: break-word; margin-bottom: 5px; padding: 10px; line-height: 1.2; border: 1px solid #ced4da; border-radius: 4px; background-color: #e9ecef;">${responseText}</pre>
+      <button id="copy-response" style="font-size: 12px; display: block; margin-left: auto; padding: 5px 10px; border: 1px solid #ced4da; border-radius: 4px; background-color: #e9ecef;">コピー</button>
     `);
     document.getElementById("overlay-title").textContent = "LLM応答";
   
