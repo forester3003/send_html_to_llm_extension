@@ -258,6 +258,7 @@ const state = {
    * @param {Object} apiConfig API設定
    */
   function sendPromptToLLM(prompt, apiConfig) {
+    updateOverlayText("処理中...");
     chrome.runtime.sendMessage({
       action: "sendToLLM",
       apiKey: apiConfig.apiKey,
